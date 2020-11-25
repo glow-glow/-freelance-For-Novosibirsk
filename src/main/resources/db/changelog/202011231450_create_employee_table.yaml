@@ -1,0 +1,59 @@
+databaseChangeLog:
+  - logicalFilePath: db/changelog/db.changelog-master.yaml
+  - changeSet:
+      id: 202011231450
+      author: lexa
+      changes:
+        - createTable:
+            tableName: employee
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: organization
+                  type: varchar(100)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: fio
+                  type: varchar(150)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: position
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: employment
+                  type: varchar(20)
+                  constraints:
+                    nullable: fals
+              - column:
+                  name: layoffs
+                  type: varchar(20)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: education
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name:  education_end
+                  type: varchar(20)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: status
+                  type: Boolean
+                  constraints:
+                    default: true
+                    nullable: false
+
+
+
