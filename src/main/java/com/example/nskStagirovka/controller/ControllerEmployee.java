@@ -1,6 +1,8 @@
 package com.example.nskStagirovka.controller;
 
-import com.example.nskStagirovka.CSVHelper;
+import com.example.nskStagirovka.Halper.CSVHelper;
+import com.example.nskStagirovka.Halper.ExcelHelper;
+import com.example.nskStagirovka.message.MessageExcel;
 import com.example.nskStagirovka.message.ResponseMessage;
 import com.example.nskStagirovka.model.Employee;
 import com.example.nskStagirovka.service.ServiceEmployeeImpl;
@@ -112,6 +114,29 @@ public class ControllerEmployee {
                 .contentType(MediaType.parseMediaType("application/csv"))
                 .body(file);
     }
+
+
+    @PostMapping("/uploadexcel")
+    public ResponseEntity<MessageExcel> uploadFileExle(@RequestParam("file") MultipartFile file) {
+        String messageExcel = "";
+
+        if (ExcelHelper.hasExcelFormat(file)) {
+            try {
+                serviceEmployee.saveExcel(file);
+
+                messageExcel = "Uploaded the file successfully: " + file.getOriginalFilename();
+                return ResponseEntity.status(HttpStatus.OK).body(new MessageExcel(messageExcel));
+            } catch (Exception e) {
+                messageExcel = "Could not upload the file: " + file.getOriginalFilename() + "!";
+                return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new MessageExcel(messageExcel));
+            }
+        }
+
+        messageExcel = "Please upload an excel file!";
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageExcel(messageExcel));
+    }
+
+
 
 
 

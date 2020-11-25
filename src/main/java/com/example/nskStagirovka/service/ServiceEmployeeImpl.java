@@ -1,6 +1,7 @@
 package com.example.nskStagirovka.service;
 
-import com.example.nskStagirovka.CSVHelper;
+import com.example.nskStagirovka.Halper.CSVHelper;
+import com.example.nskStagirovka.Halper.ExcelHelper;
 import com.example.nskStagirovka.model.Employee;
 import com.example.nskStagirovka.repos.ReposEmployee;
 import org.springframework.stereotype.Service;
@@ -65,6 +66,17 @@ public class ServiceEmployeeImpl implements ServiceEmployee {
 
         ByteArrayInputStream in = CSVHelper.tutorialsToCSV(tutorials);
         return in;
+    }
+
+
+
+    public void saveExcel(MultipartFile file) {
+        try {
+            List<Employee> tutorials = ExcelHelper.excelToEmployees(file.getInputStream());
+            reposEmployee.saveAll(tutorials);
+        } catch (IOException e) {
+            throw new RuntimeException("fail to store excel data: " + e.getMessage());
+        }
     }
 
 

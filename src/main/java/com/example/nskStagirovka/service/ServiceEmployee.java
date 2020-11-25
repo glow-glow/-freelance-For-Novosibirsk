@@ -1,7 +1,6 @@
 package com.example.nskStagirovka.service;
 
 import com.example.nskStagirovka.model.Employee;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.UUID;
